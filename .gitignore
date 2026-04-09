@@ -1,0 +1,30 @@
+# Archivos compilados
+/dist
+
+# Dependencias
+/node_modules
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Entornos (MUY IMPORTANTE para seguridad)
+.env
+.env.test
+.env.production
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Cobertura de tests
+/coverage
+
+# Configuraciones locales de editores
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
