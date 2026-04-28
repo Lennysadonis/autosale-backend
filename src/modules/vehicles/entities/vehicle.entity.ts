@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class vehicle {
+export class Vehicle { // <--- Corregido: 'V' mayúscula para que el Servicio lo reconozca
 
     @PrimaryGeneratedColumn('increment', { type: 'int4' })
     id: number;
@@ -26,10 +26,10 @@ export class vehicle {
     color: string;
 
     @Column({ type: 'int4', default: 0 })
-    milage: number;
+    milage: number; // Mantenemos tu nombre de columna de pgAdmin
 
     @Column({ type: 'float' })
-    prece: number;
+    prece: number; // Mantenemos tu nombre de columna de pgAdmin
 
     @Column({ type: 'varchar', length: 50 })
     status: string;

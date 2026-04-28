@@ -1,16 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
-import { VehiclesController } from './controllers/vehicles.controller';
 import { VehiclesService } from './services/vehicles.service';
-import { vehicle } from './entities/vehicle.entity';
+import { VehiclesController } from './controllers/vehicles.controller';
+import { Vehicle } from './entities/vehicle.entity'; // Corregido: V mayúscula
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([vehicle]) // 🔥 ESTA LÍNEA ES LA CLAVE
+    // Registramos la entidad en el módulo para que el repositorio funcione
+    TypeOrmModule.forFeature([Vehicle]) // Corregido: V mayúscula
   ],
   controllers: [VehiclesController],
   providers: [VehiclesService],
-  exports: [VehiclesService],
 })
 export class VehiclesModule {}
