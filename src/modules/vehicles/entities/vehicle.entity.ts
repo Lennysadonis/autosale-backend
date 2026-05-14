@@ -7,8 +7,8 @@ import {
   DeleteDateColumn
 } from 'typeorm';
 
-@Entity()
-export class Vehicle { // <--- Corregido: 'V' mayúscula para que el Servicio lo reconozca
+@Entity('vehicles') // <-- Esto fuerza a que la tabla en pgAdmin se llame 'vehicles'
+export class Vehicles { // <-- Cambiado a plural en la línea 11 como pediste
 
     @PrimaryGeneratedColumn('increment', { type: 'int4' })
     id: number;
@@ -26,10 +26,10 @@ export class Vehicle { // <--- Corregido: 'V' mayúscula para que el Servicio lo
     color: string;
 
     @Column({ type: 'int4', default: 0 })
-    milage: number; // Mantenemos tu nombre de columna de pgAdmin
+    milage: number;
 
     @Column({ type: 'float' })
-    prece: number; // Mantenemos tu nombre de columna de pgAdmin
+    prece: number; 
 
     @Column({ type: 'varchar', length: 50 })
     status: string;
