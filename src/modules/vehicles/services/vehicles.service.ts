@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common'; // Agregamos la excepción
+import { Injectable, InternalServerErrorException } from '@nestjs/common'; 
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateVehicleDto } from '../dto/vehicle.dto';
@@ -14,18 +14,18 @@ export class VehiclesService {
 
   async create(createVehicleDto: CreateVehicleDto) {
     try {
-      // Preparamos el objeto
+      
       const vehicle = this.vehicleRepository.create(createVehicleDto);
       
-      // Intentamos guardar en PostgreSQL
+      
       await this.vehicleRepository.save(vehicle);
       
       return vehicle;
     } catch (error) {
-      // Si algo sale mal, lo vemos en la terminal
+      
       console.log(error);
       
-      // Enviamos el error formal al cliente (Postman)
+      
       throw new InternalServerErrorException('Error al crear el vehículo');
     }
   }

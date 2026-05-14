@@ -7,8 +7,8 @@ import {
   DeleteDateColumn
 } from 'typeorm';
 
-@Entity('vehicles') // <-- Esto fuerza a que la tabla en pgAdmin se llame 'vehicles'
-export class Vehicles { // <-- Cambiado a plural en la línea 11 como pediste
+@Entity('vehicles') 
+export class Vehicles { 
 
     @PrimaryGeneratedColumn('increment', { type: 'int4' })
     id: number;

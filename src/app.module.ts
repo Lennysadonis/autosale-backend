@@ -7,21 +7,21 @@ import { ModelsModule } from './modules/models/models.module';
 
 @Module({
   imports: [
-    // 1. Cargamos el ConfigModule primero para que las variables estén listas
+    
     ConfigModule.forRoot({
       isGlobal: true, 
     }),
     
-    // 2. Configuración de TypeORM
+    
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT),
-      username: process.env.DB_USER, // Corregido: antes decía DB_USERNAME
+      username: process.env.DB_USER, 
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      autoLoadEntities: true, // Recomendado: carga las entidades de tus módulos automáticamente
-      synchronize: true,      // Esto creará las tablas en pgAdmin por ti
+      autoLoadEntities: true, 
+      synchronize: true,      
     }),
 
     VehiclesModule,
