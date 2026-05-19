@@ -1,42 +1,49 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common'; 
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateVehicleDto } from '../dto/vehicle.dto';
-import { Vehicles } from '../entities/vehicle.entity'; 
+import { Vehicle } from '../entities/vehicle.entity';
+import { CreateVehicleDto, UpdateVehicleDto } from '../dto/vehicle.dto';
 
 @Injectable()
 export class VehiclesService {
-
   constructor(
-    @InjectRepository(Vehicles)
-    private readonly vehicleRepository: Repository<Vehicles>,
+    @InjectRepository(Vehicle)
+    private readonly vehicleRepository: Repository<Vehicle>,
   ) {}
 
-  async create(createVehicleDto: CreateVehicleDto) {
-    try {
-      
-      const vehicle = this.vehicleRepository.create(createVehicleDto);
-      
-      
-      await this.vehicleRepository.save(vehicle);
-      
-      return vehicle;
-    } catch (error) {
-      
-      console.log(error);
-      
-      
-      throw new InternalServerErrorException('Error al crear el vehículo');
-    }
+  async create(createVehicleDto: CreateVehicleDto): Promise<Vehicle> {
+    const vehicle = this.vehicleRepository.create(createVehicleDto);
+    return await this.vehicleRepository.save(vehicle);
   }
 
-  async findAll() {
-    try {
-      return await this.vehicleRepository.find();
-    } catch (error) {
-      console.log(error);
-      throw new InternalServerErrorException('Error al obtener la lista de vehículos');
+  async findAll(): Promise<Vehicle[]> {
+    return await this.vehicleRepository.find({
+      relations: ['model', 'model.brand'],
+    });
+  }
+
+  async findOne(id: number): Promise<Vehicle> {
+    const vehicle = await this.vehicleRepository.findOne({
+      where: { id },
+      relations: ['model', 'model.brand'],
+    });
+    if (!vehicle) {
+      throw new NotFoundException(`Vehículo con id ${id} no encontrado`);
     }
+    return vehicle;
+  }
+
+  async update(
+    id: number,
+    updateVehicleDto: UpdateVehicleDto,
+  ): Promise<Vehicle> {
+    const vehicle = await this.findOne(id);
+    Object.assign(vehicle, updateVehicleDto);
+    return await this.vehicleRepository.save(vehicle);
+  }
+
+  async remove(id: number): Promise<Vehicle> {
+    const vehicle = await this.findOne(id);
+    return await this.vehicleRepository.softRemove(vehicle);
   }
 }
-

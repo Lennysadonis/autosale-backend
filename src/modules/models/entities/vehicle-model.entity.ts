@@ -1,7 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm'; // <-- ¡Esta es la línea que faltaba!
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Brand } from '../../brands/entities/brand.entity';
 
-@Entity()
+@Entity('vehicle_models')
 export class VehicleModel {
   @PrimaryGeneratedColumn('increment', { type: 'int4' })
   id: number;

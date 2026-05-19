@@ -1,7 +1,6 @@
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { 
   IsInt, 
-  isNotEmpty, 
   IsNotEmpty, 
   IsNumber, 
   IsOptional, 
@@ -35,11 +34,12 @@ export class CreateVehicleDto {
   @ApiProperty()
   color: string;
 
+  
   @IsInt()
   @IsPositive()
   @IsOptional()
   @ApiProperty()
-  milage: number;
+  mileage: number;
 
   @IsNumber()
   @IsPositive()
